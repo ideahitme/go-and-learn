@@ -4,7 +4,9 @@
 
 Link: https://www.goinggo.net/2017/06/language-mechanics-on-memory-profiling.html
 
-### Program byte stream transformer using io package: 
+### Program byte stream transformer using io package:
+
+All source code available in [stream/challenge.go](stream/challenge.go)
 
 #### Correct code
 
