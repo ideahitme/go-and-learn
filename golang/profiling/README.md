@@ -335,3 +335,4 @@ See in `cmd/main.go`
 1. https://medium.com/@hackintoshrao/daily-code-optimization-using-benchmarks-and-profiling-in-golang-gophercon-india-2016-talk-874c8b4dc3c5
 2. https://www.youtube.com/watch?v=-KDRdz4S81U
 3. http://github.com/pkg/profile - utility for runtime profiling
+4. https://scene-si.org/2017/06/06/benchmarking-go-programs/?utm_source=golangweekly&utm_medium=email - has a paragraph about using flame graph
