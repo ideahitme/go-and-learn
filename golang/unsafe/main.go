@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"syscall"
 	"unsafe"
 )
 
@@ -26,6 +27,8 @@ func main() {
 
 	sliceOfInts := *(*[]int32)(unsafe.Pointer(&bheader))
 	fmt.Println(sliceOfInts) //[257 5] - depends on endian-ness of the machine
+
+	modifyStringInPlace()
 }
 
 // type                               alignment guarantee
@@ -114,4 +117,42 @@ func sizeOf() {
 		age:  55,
 	}
 	println("size of struct", unsafe.Sizeof(user)) // 4*4+8 = 24
+}
+
+/**
+use unsafe to modify string in place
+*/
+
+func modifyStringInPlace() {
+	s := "1234"
+	// let's change s to 1235
+
+	stringHeader := *(*reflect.StringHeader)(unsafe.Pointer(&s))
+	// stringHeader.Data points to the actual data
+	// disable memory protection, because string are read-only
+	setMemoryProtect(stringHeader.Data, true)
+	defer setMemoryProtect(stringHeader.Data, false) //enable it back
+
+	lastEl := (*byte)(unsafe.Pointer(stringHeader.Data + 1*uintptr(3))) //now lastEl points to the last bytes of string
+	*lastEl = '5'
+
+	fmt.Println(s) // 1235
+}
+
+func setMemoryProtect(ptr uintptr, w bool) {
+	// make sure start is a multiple of page size
+	start := ptr & ^(uintptr(syscall.Getpagesize() - 1)) //clears last bits, e.g. on mac pagesize is 4096 = 2^12, hence last 11 bits are cleared
+	prot := syscall.PROT_READ
+	if w {
+		prot |= syscall.PROT_WRITE
+	}
+
+	_, _, err := syscall.Syscall(
+		syscall.SYS_MPROTECT,
+		start, uintptr(syscall.Getpagesize()),
+		uintptr(prot),
+	) // this would work only if string occupies less than pagesize
+	if err != 0 {
+		panic(err.Error())
+	}
 }
