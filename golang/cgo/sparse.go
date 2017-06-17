@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	s, err := New(1000)
+	s, err := NewSet(10000)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,6 +20,8 @@ func main() {
 	s.Insert(100)
 	fmt.Printf("is %d in the set: %t\n", 100, s.Find(100))
 	fmt.Printf("is %d in the set: %t\n", 99, s.Find(99))
+	s.Insert(99)
+	fmt.Printf("is %d in the set: %t\n", 99, s.Find(99))
 
 	s.Clear()
 	fmt.Printf("is %d in the set: %t\n", 100, s.Find(100))
@@ -27,18 +29,17 @@ func main() {
 
 // SparseSet implementation
 // size is the number of elements currently stored
-//
 type SparseSet struct {
 	size   int32
 	dense  []uint32
 	sparse unsafe.Pointer
 }
 
-// New initializes SparseSet it operates under assumption integers are 4 bytes as most commonly implemented in C compilers
-// maxInt is the maximum integer value to be present in the set
-func New(maxInt uint32) (*SparseSet, error) {
+// NewSet initializes SparseSet; it operates under assumption contained ints are 4 bytes as common in C compilers
+// maxInt is the maximum integer value possibly present in the set
+func NewSet(maxInt uint32) (*SparseSet, error) {
 	//allocate a new array via malloc
-	sparse := C.malloc(C.size_t(maxInt)*4 + 1)
+	sparse := C.malloc(C.size_t(maxInt) * 4)
 	if sparse == nil {
 		return nil, fmt.Errorf("failed to allocate memory")
 	}
@@ -54,8 +55,11 @@ func (s *SparseSet) Clear() {
 }
 
 func (s *SparseSet) Insert(i uint32) {
-	s.dense = append(s.dense, i)
 	mem := (*int32)(s.at(i))
+	if *mem < s.size && s.dense[*mem] == i {
+		return //already in the set
+	}
+	s.dense = append(s.dense, i)
 	*mem = s.size
 	s.size++
 }
