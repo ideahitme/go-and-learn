@@ -10,6 +10,9 @@ Writing to nil channel: block (deadlock)
 Reading from closed channel: never blocks, receive zero value
 Writing to closed channel: panic
 
+### TODOs
+
+Analyse goroutine leaks: https://medium.com/golangspec/goroutine-leak-400063aef468
 
 ### Articles
 
