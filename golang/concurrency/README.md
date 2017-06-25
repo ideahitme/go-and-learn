@@ -12,7 +12,12 @@ Writing to closed channel: panic
 
 ### Example 
 
-1. https://ideahitme.github.io/posts/i-like-what-my-friends-like/ - see main.go for the code
+1. https://ideahitme.github.io/posts/i-like-what-my-friends-like/ - see main.go for the code 
+
+run it with 
+```bash
+go run main.go -me "my-github-handle" -token "my-github-token"
+```
 
 ### TODOs
 
