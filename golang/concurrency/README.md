@@ -10,6 +10,10 @@ Writing to nil channel: block (deadlock)
 Reading from closed channel: never blocks, receive zero value
 Writing to closed channel: panic
 
+### Example 
+
+1. https://ideahitme.github.io/posts/i-like-what-my-friends-like/ - see main.go for the code
+
 ### TODOs
 
 Analyse goroutine leaks: https://medium.com/golangspec/goroutine-leak-400063aef468
