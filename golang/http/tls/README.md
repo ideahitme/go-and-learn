@@ -77,3 +77,17 @@ Key exchange method
 >RSA: the server's key is of type RSA. The client generates a random value (the "pre-master secret" of 48 bytes, out of which 46 are random) and encrypts it with the server's public key. There is no ServerKeyExchange
 
 The idea of Server generating Public/Private key pair. Public for encryption and private for decryption. Then client generates a random key which is encrypted with Public key of server(which is verified with CA, whose signature is shared along with Public certificate). The server decrypts using its private key and then encrypts a message using decrypted client generated random key. This random key is then used for further encryption.
+
+### Golang usages
+
+1. Create RSA keys
+
+2. Creating digital signatures
+
+3. Creating self-signed certs
+
+4. Making client trust server
+
+5. Making server trust client
+
+6. Bonus (more flags and options)
