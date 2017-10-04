@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"testing"
+	"time"
 )
 
 var testData []byte
@@ -26,6 +27,7 @@ func benchmarkPipe(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		bf := bytes.NewReader(testData)
+		time.Sleep(150 * time.Millisecond)
 		ioutil.ReadAll(PipedStream(bf))
 	}
 }
@@ -34,6 +36,7 @@ func benchmarkBuffer(b *testing.B) {
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		bf := bytes.NewReader(testData)
+		time.Sleep(150 * time.Millisecond)
 		ioutil.ReadAll(BufferedStream(bf))
 	}
 }

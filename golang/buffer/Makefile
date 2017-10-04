@@ -13,5 +13,3 @@ memtest:
 mempprof: memtest
 	@go tool pprof -alloc_space buffer.test mem.out
 	rm -rf buffer.test
-
-

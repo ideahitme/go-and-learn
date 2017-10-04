@@ -66,6 +66,12 @@ Pipe does not use any additional memory and produces Reader almost immediately. 
 
 Now additionally to the previous task, we want to consume all the data from the `io.Reader` first by simply calling `ioutil.ReadAll` and second by making `http.Post` request with a large payload size. We will see the drastic change in performance in two different usages. 
 
+## Benchmark ReadAll
+
+```bash
+
+```
+
 ## Conclusion
 
 Careful analysis might signify that since in the second solution we are not using any additional memory it should be more performant. However it is by far not always the case. While `Pipe` solution requires far less memory it is CPU intensive due to usage of `mutex` and goroutine management. Let's do some benchmarking: 
