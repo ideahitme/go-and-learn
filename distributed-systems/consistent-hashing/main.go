@@ -103,3 +103,18 @@ func (c *Circle) StoreData(data []byte) error {
 	c.virtualNodes[0].real.Store(data)
 	return nil
 }
+
+func (c *Circle) String() string {
+	output := ""
+
+	output += fmt.Sprintf("Number of nodes: %d\n", c.numNodes)
+	output += fmt.Sprintf("Number of virtual nodes per real node: %d\n", c.virtualReplicationNumFunc(c.numNodes))
+
+	sort.Sort(ByPosition(c.virtualNodes))
+	for _, n := range c.virtualNodes {
+		output += fmt.Sprintf("%+v ", n)
+	}
+	output += "\n"
+
+	return output
+}
