@@ -336,3 +336,4 @@ See in `cmd/main.go`
 2. https://www.youtube.com/watch?v=-KDRdz4S81U
 3. http://github.com/pkg/profile - utility for runtime profiling
 4. https://scene-si.org/2017/06/06/benchmarking-go-programs/?utm_source=golangweekly&utm_medium=email - has a paragraph about using flame graph
+5. https://software.intel.com/en-us/blogs/2014/05/10/debugging-performance-issues-in-go-programs
