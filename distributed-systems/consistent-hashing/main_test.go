@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"testing"
+	"crypto/md5"
 )
 
 func TestCircle(t *testing.T) {
@@ -15,3 +16,11 @@ func TestCircle(t *testing.T) {
 	}
 	fmt.Println(c)
 }
+
+func TestMD5Hashing(t *testing.T) {
+	var md5Checksum [16]byte
+	md5Checksum = md5.Sum([]byte("1234"))
+
+
+}
+
