@@ -3,3 +3,5 @@ companies
 **/cpu.out
 **/*.test
 **/main
+**/*.out
+**/*.o
